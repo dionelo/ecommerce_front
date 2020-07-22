@@ -15,9 +15,6 @@ import { ThankyouComponent } from './components/thankyou/thankyou.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './components/login/login.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { SocialLoginModule } from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -28,9 +25,7 @@ import { SocialLoginModule } from 'angularx-social-login';
     CheckoutComponent,
     HomeComponent,
     ProductComponent,
-    ThankyouComponent,
-    LoginComponent,
-    ProfileComponent
+    ThankyouComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +34,7 @@ import { SocialLoginModule } from 'angularx-social-login';
     HttpClientModule,
     NgxSpinnerModule,
     ToastrModule.forRoot(),
-    FormsModule,
-    SocialLoginModule
+    FormsModule
 
   ],
   providers: [],

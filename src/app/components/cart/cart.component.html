@@ -30,7 +30,7 @@
                             <td class="d-flex align-items-center justify-content-around">
                                 <img [src]="c.product.image" alt="{{c.product.name}}" height="60" class="order-1">
                                 <span class="text-danger mr-md-2" style="cursor: pointer;">
-                                    <i class="fa fa-trash" (click)="cartService.DeleteProductFromCart(i)"></i>
+                                    <i class="fas fa-trash" (click)="cartService.DeleteProductFromCart(i)"></i><i class="fas fa-arrow-left ml-2" style="cursor: default;"></i>
                                 </span>
                             </td>
 
@@ -44,7 +44,7 @@
                                         <i class="fa fa-minus"></i>
                                     </div>
                                     <input type="number" id="number" [value]="c.numInCart" readonly [max]="c.product.quantity">
-                                    <div class="value-button" id="increase" (click)="ChangeQuantity(i, true)">
+                                    <div class="value-button increase" id="increase" [class.disabled]="c.numInCart === c.product.quantity" (click)="ChangeQuantity(i, true)">
                                         <i class="fa fa-plus"></i>
                                     </div>
                                 </form>
@@ -70,8 +70,8 @@
 
             <div class="col-md-12 d-flex mb-5">
                 <div class="d-flex justify-content-between flex-sm-column flex-md-row w-100">
-                    <a routerLink="/checkout" class="btn btn-danger btn-sm order-1">Checkout</a>
-                    <a routerLink="/" class="btn btn-success btn-sm order-0">Continue Shopping</a>
+                    <a routerLink="/checkout" class="btn btn-danger order-1">Checkout</a>
+                    <a routerLink="/" class="btn btn-info order-0">Continue Shopping</a>
                 </div>
             </div>
 

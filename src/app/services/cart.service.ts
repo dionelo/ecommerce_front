@@ -161,11 +161,11 @@ export class CartService {
             localStorage.setItem('cart', JSON.stringify(this.cartDataClient))
             this.cartData$.next({...this.cartDataServer})
         } else {
-            data.numInCart--
-            if (data.numInCart < 1) {
+            if (data.numInCart <= 1) {
                 this.DeleteProductFromCart(index)
                 this.cartData$.next({...this.cartDataServer})
             } else {
+                data.numInCart--
                 this.cartData$.next({...this.cartDataServer})
                 this.cartDataClient.prodData[index].inCart = data.numInCart
                 this.CalculateTotal()
