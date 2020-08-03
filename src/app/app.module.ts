@@ -15,6 +15,20 @@ import { ThankyouComponent } from './components/thankyou/thankyou.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login'
+
+const config = new AuthServiceConfig([
+	{
+		id: GoogleLoginProvider.PROVIDER_ID,
+		provider: new GoogleLoginProvider("510682711020-jcnvs629irv01b7nj78vmdjfj90nnuen.apps.googleusercontent.com")
+	}
+])
+
+export function provideConfig() {
+	return config
+}
 
 @NgModule({
   declarations: [
@@ -25,7 +39,9 @@ import { FormsModule } from '@angular/forms';
     CheckoutComponent,
     HomeComponent,
     ProductComponent,
-    ThankyouComponent
+    ThankyouComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -34,10 +50,17 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     NgxSpinnerModule,
     ToastrModule.forRoot(),
-    FormsModule
+    FormsModule,
+    SocialLoginModule
 
   ],
-  providers: [],
+  providers: [
+	  {
+		  provide: AuthServiceConfig,
+		  useFactory: provideConfig
+	  }
+  ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
