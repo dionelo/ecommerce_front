@@ -43,11 +43,11 @@ export class LoginComponent implements OnInit {
 		form.reset()
 		this.userService.loginUser(email, password)
 
-		// this.userService.loginMessage$.subscribe(msg => {
-		// 	this.loginMessage = msg
-		// 	setTimeout(() => {
-		// 	  this.loginMessage = ''
-		// 	}, 2000)
-		// })
+		this.userService.loginMessage$.subscribe(msg => {
+			this.loginMessage = msg
+			setTimeout(() => {
+			  this.loginMessage = ''
+			}, 2000)
+		})
   	}
 }

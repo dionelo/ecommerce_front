@@ -14,10 +14,12 @@ import { ProductComponent } from './components/product/product.component';
 import { ThankyouComponent } from './components/thankyou/thankyou.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login'
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeLayoutComponent } from './components/home-layout/home-layout.component'
 
 const config = new AuthServiceConfig([
 	{
@@ -31,36 +33,38 @@ export function provideConfig() {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    CartComponent,
-    CheckoutComponent,
-    HomeComponent,
-    ProductComponent,
-    ThankyouComponent,
-    LoginComponent,
-    ProfileComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NgxSpinnerModule,
-    ToastrModule.forRoot(),
-    FormsModule,
-    SocialLoginModule
-
-  ],
-  providers: [
-	  {
-		  provide: AuthServiceConfig,
-		  useFactory: provideConfig
-	  }
-  ],
-  bootstrap: [AppComponent]
+  	declarations: [
+		AppComponent,
+		HeaderComponent,
+		FooterComponent,
+		CartComponent,
+		CheckoutComponent,
+		HomeComponent,
+		ProductComponent,
+		ThankyouComponent,
+		LoginComponent,
+		ProfileComponent,
+		RegisterComponent,
+		HomeLayoutComponent
+  	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+		HttpClientModule,
+		NgxSpinnerModule,
+		ToastrModule.forRoot(),
+		FormsModule,
+		ReactiveFormsModule,
+		SocialLoginModule
+	],
+	providers: [
+		{
+			provide: AuthServiceConfig,
+			useFactory: provideConfig
+		}
+	],
+  	bootstrap: [AppComponent]
 })
 
 export class AppModule { }
