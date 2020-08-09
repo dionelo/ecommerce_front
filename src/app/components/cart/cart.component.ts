@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { cartModelServer } from 'src/app/models/cart.models';
 import { CartService } from 'src/app/services/cart.service';
+import { UserService } from './../../services/user.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart',

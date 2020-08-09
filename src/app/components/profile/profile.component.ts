@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
   	templateUrl: './profile.component.html',
   	styleUrls: ['./profile.component.scss']
 })
+
 export class ProfileComponent implements OnInit {
 	myUser: any
 
@@ -20,7 +21,7 @@ export class ProfileComponent implements OnInit {
       		.pipe(map((user: SocialUser | ResponseModel) => {
         		if (user instanceof SocialUser || user.type === 'social') {
           			return {
-						... user,
+						...user,
             			email: 'test@test.com'
           			}
         		} else {
@@ -35,5 +36,4 @@ export class ProfileComponent implements OnInit {
 	  logout() {
 		  this.userService.logout()
 	  }
-
 }

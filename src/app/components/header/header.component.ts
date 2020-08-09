@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   cartTotal: number
   authState: boolean
 
-  constructor(public cartService: CartService, private userService: UserService) { }
+  constructor(public cartService: CartService, public userService: UserService) { }
 
   ngOnInit(): void {
     this.cartService.cartTotal$.subscribe(total => this.cartTotal = total)

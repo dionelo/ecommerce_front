@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit } from '@angular/core';
 import { AuthService } from 'angularx-social-login';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   	ngOnInit(): void {
 		this.userService.authState$.subscribe(authState => {
       		if (authState) {
-        		this.router.navigateByUrl(this.route.snapshot.queryParams['returnUrl'] || '/profile')        
+        		this.router.navigateByUrl(this.route.snapshot.queryParams.returnUrl || '/profile')        
       		} else {
         		this.router.navigateByUrl('/login')
       		}
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 		this.userService.loginMessage$.subscribe(msg => {
 			this.loginMessage = msg
 			setTimeout(() => {
-			  this.loginMessage = ''
+			  	this.loginMessage = ''
 			}, 2000)
 		})
   	}

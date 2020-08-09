@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http'
 import {environment} from '../../environments/environment'
 import {BehaviorSubject, Observable, of} from 'rxjs'
 import {catchError} from 'rxjs/operators'
+import { Router } from '@angular/router'
 
 @Injectable({
   	providedIn: 'root'
@@ -18,7 +19,7 @@ export class UserService {
 	loginMessage$ = new BehaviorSubject<string>(null)
 	userRole: number
 
-	constructor(private authService: AuthService, private httpClient: HttpClient) {
+	constructor(private authService: AuthService, private httpClient: HttpClient, private router: Router) {
 
 		authService.authState.subscribe((user: SocialUser) => {
 			if (user != null) {
@@ -30,7 +31,7 @@ export class UserService {
 							email: user.email,
 							fname: user.firstName,
 							lname: user.lastName,
-							password: '123456'
+							password: '123456789'
 						}, user.photoUrl, 'social').subscribe(response => {
 							if (response.message === 'Registration successful') {
 								this.auth = true
@@ -45,6 +46,11 @@ export class UserService {
 						this.userRole = res.user.role
 						this.authState$.next(this.auth)
 						this.userData$.next(res.user)
+
+						console.log(this.userRole)
+						if (this.userRole === 777) {
+							this.router.navigateByUrl('admin').then()
+						}
 					}
 				})
 			}
@@ -64,6 +70,11 @@ export class UserService {
 				this.userRole = data.role
 				this.authState$.next(this.auth)
 				this.userData$.next(data)
+
+				console.log(this.userRole)
+				if (this.userRole === 777) {
+				  this.router.navigateByUrl('admin').then()
+				}
 			}
 		})
 	}

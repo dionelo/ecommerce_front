@@ -10,7 +10,9 @@
             </ul>
             <ul class="header-links">
                 <!-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li> -->
-                <li><a routerLink="/profile"><i class="fa fa-user-o"></i>{{authState === false ? 'Login' : 'My Account'}}</a></li>
+                <li><a routerLink="/profile"><i class="fa fa-sign-in"></i>{{authState === false ? 'Login' : 'My Account'}}</a></li>
+                <li *ngIf="!authState"><a routerLink="/register"><i class="fa fa-user-plus"></i> Register</a></li>
+                <li><a routerLink="/admin" *ngIf="authState"><i class="fa fa-user-plus"></i> ADMIN</a></li>
             </ul>
         </div>
     </div>
