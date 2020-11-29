@@ -9,42 +9,43 @@ declare let $: any;
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent implements OnInit, AfterViewInit {
-  id: number
-  product
-  thumbImages: any[] = [] 
 
-  @ViewChild('quantity') quantityInput
+export class ProductComponent implements OnInit, AfterViewInit {
+  id: number;
+  product;
+  thumbImages: any[] = [];
+
+  @ViewChild('quantity') quantityInput;
 
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private route: ActivatedRoute  
-  ) { }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
         map((param: ParamMap) => {
           // @ts-ignore
-          return param.params.id
+          return param.params.id;
         })
       )
-      .subscribe(prodId => {
-        this.id = prodId
-        this.productService.getSingleProduct(this.id).subscribe(prod => {
-          this.product = prod
-          if (prod.images !== null) {
-            this.thumbImages = prod.images.split(';')
-          }
-        })
-      })
+      .subscribe((prodId) => {
+        this.id = prodId;
+        this.productService.getSingleProduct(this.id)
+          .subscribe((prod) => {
+            this.product = prod;
+            if (prod.images !== null) {
+              this.thumbImages = prod.images.split(';');
+            }
+          });
+      });
   }
 
   ngAfterViewInit(): void {
-
     // Product Main img Slick
     $('#product-main-img').slick({
       infinite: true,
@@ -65,15 +66,16 @@ export class ProductComponent implements OnInit, AfterViewInit {
       centerPadding: 0,
       vertical: true,
       asNavFor: '#product-main-img',
-      responsive: [{
+      responsive: [
+        {
           breakpoint: 991,
           settings: {
             vertical: false,
             arrows: false,
             dots: true,
-          }
+          },
         },
-      ]
+      ],
     });
 
     // Product img zoom
@@ -83,41 +85,41 @@ export class ProductComponent implements OnInit, AfterViewInit {
     }
   }
 
-  Increase() {
-    let value = parseInt(this.quantityInput.nativeElement.value)
+  increase() {
+    let value = parseInt(this.quantityInput.nativeElement.value);
 
     if (this.product.quantity >= 1) {
-      value++
-
+      value++;
       if (value > this.product.quantity) {
-        value = this.product.quantity
+        value = this.product.quantity;
       }
     } else {
-      return
+      return;
     }
 
-    this.quantityInput.nativeElement.value = value.toString()
-
+    this.quantityInput.nativeElement.value = value.toString();
   }
 
-  Decrease() {
-    let value = parseInt(this.quantityInput.nativeElement.value)
+  decrease() {
+    let value = parseInt(this.quantityInput.nativeElement.value);
 
     if (this.product.quantity > 0) {
-      value--
+      value--;
 
       if (value <= 1) {
-        value = 1
+        value = 1;
       }
     } else {
-      return
+      return;
     }
 
-    this.quantityInput.nativeElement.value = value.toString()
+    this.quantityInput.nativeElement.value = value.toString();
   }
 
   addToCart(id: number) {
-    this.cartService.AddProductToCart(id, this.quantityInput.nativeElement.value)
+    this.cartService.addProductToCart(
+      id,
+      this.quantityInput.nativeElement.value
+    );
   }
-
 }

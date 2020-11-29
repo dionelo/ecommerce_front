@@ -1,8 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { cartModelServer } from 'src/app/models/cart.models';
 import { CartService } from 'src/app/services/cart.service';
-import { UserService } from './../../services/user.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart',
@@ -21,8 +19,8 @@ export class CartComponent implements OnInit {
     this.cartService.cartTotal$.subscribe(total => this.cartTotal = total)
   }
 
-  ChangeQuantity(index: number, increase: boolean) {
-    this.cartService.UpdateCartItems(index, increase)
+  changeQuantity(index: number, increase: boolean) {
+    this.cartService.updateCartItems(index, increase)
   }
 
 }
