@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import {
-  ProductModelServer,
+  ProductServer,
   ServerResponse,
 } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
@@ -13,7 +13,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  products: ProductModelServer[] = [];
+  products: ProductServer[] = [];
 
   constructor(
     private productService: ProductService,

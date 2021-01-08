@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { ProductService } from './product.service';
 import { OrderService } from './order.service';
 import { environment } from 'src/environments/environment';
-import { cartModelPublic, cartModelServer } from '../models/cart.models';
+import { CartPublic, CartServer } from '../models/cart.models';
 import { BehaviorSubject } from 'rxjs';
 import { Router, NavigationExtras } from '@angular/router';
-import { ProductModelServer } from '../models/product.model';
+import { ProductServer } from '../models/product.model';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -17,7 +17,7 @@ export class CartService {
   private serverUrl = environment.SERVER_URL;
 
   // Data variable to store the cart information on the client's local storage
-  private cartDataClient: cartModelPublic = {
+  private cartDataClient: CartPublic = {
     total: 0,
     prodData: [
       {
@@ -28,7 +28,7 @@ export class CartService {
   };
 
   // Data variable to store cart information on the server
-  private cartDataServer: cartModelServer = {
+  private cartDataServer: CartServer = {
     total: 0,
     data: [
       {
@@ -40,7 +40,7 @@ export class CartService {
 
   // Observables for the components to subscribe
   cartTotal$ = new BehaviorSubject<number>(0);
-  cartData$ = new BehaviorSubject<cartModelServer>(this.cartDataServer);
+  cartData$ = new BehaviorSubject<CartServer>(this.cartDataServer);
 
   constructor(
     private http: HttpClient,
@@ -54,7 +54,7 @@ export class CartService {
     this.cartData$.next(this.cartDataServer);
 
     // Get the information from local storage (if any)
-    let info: cartModelPublic = JSON.parse(localStorage.getItem('cart'));
+    const info: CartPublic = JSON.parse(localStorage.getItem('cart'));
 
     // Check if the info variable is null or has some data in it
     if (info !== null && info !== undefined && info.prodData[0].inCart !== 0) {
@@ -64,7 +64,7 @@ export class CartService {
       this.cartDataClient.prodData.forEach((p) => {
         this.productService
           .getSingleProduct(p.id)
-          .subscribe((actualProductInfo: ProductModelServer) => {
+          .subscribe((actualProductInfo: ProductServer) => {
             if (this.cartDataServer.data[0].numInCart === 0) {
               this.cartDataServer.data[0].numInCart = p.inCart;
               this.cartDataServer.data[0].product = actualProductInfo;
@@ -110,7 +110,7 @@ export class CartService {
         // If the cart has some items
       } else {
         // -1 or a positive value
-        let index = this.cartDataServer.data.findIndex(
+        const index = this.cartDataServer.data.findIndex(
           (p) => p.product.id === prod.id
         );
 
@@ -122,9 +122,10 @@ export class CartService {
                 ? quantity
                 : prod.quantity;
           } else {
-            this.cartDataServer.data[index].numInCart < prod.quantity
-              ? this.cartDataServer.data[index].numInCart++
-              : prod.quantity;
+            this.cartDataServer.data[index].numInCart =
+              this.cartDataServer.data[index].numInCart < prod.quantity
+                ? this.cartDataServer.data[index].numInCart++
+                : prod.quantity;
           }
 
           this.cartDataClient.prodData[index].inCart = this.cartDataServer.data[
@@ -173,12 +174,12 @@ export class CartService {
   }
 
   updateCartItems(index: number, increase: boolean) {
-    let data = this.cartDataServer.data[index];
+    const data = this.cartDataServer.data[index];
 
     if (increase) {
       data.numInCart < data.product.quantity
         ? data.numInCart++
-        : data.product.quantity;
+        : data.product.quantity = data.product.quantity;
       this.cartDataClient.prodData[index].inCart = data.numInCart;
       this.calculateTotal();
       this.cartDataClient.total = this.cartDataServer.total;
@@ -236,7 +237,7 @@ export class CartService {
           this.resetServerData();
           this.http
             .post(`${this.serverUrl}orders/new`, {
-              userId: userId,
+              userId,
               products: this.cartDataClient.prodData,
             })
             .subscribe((data: OrderResponse) => {

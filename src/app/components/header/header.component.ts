@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { cartModelServer } from 'src/app/models/cart.models';
+import { CartServer } from 'src/app/models/cart.models';
 import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  cartData: cartModelServer;
+  cartData: CartServer;
   cartTotal: number;
   authState: boolean;
 

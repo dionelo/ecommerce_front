@@ -14,7 +14,7 @@ export class CheckEmailService {
 
   constructor(private httpClient: HttpClient) {}
 
-  searchEmail(text) {
+  searchEmail(text: any) {
     return timer(2000).pipe(
       switchMap(() =>
         this.httpClient.get(`${this.SERVER_URL}users/validate/${text}`)

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { cartModelServer } from 'src/app/models/cart.models';
+import { CartServer } from 'src/app/models/cart.models';
 import { CartService } from 'src/app/services/cart.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from 'src/app/services/user.service';
@@ -11,8 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CheckoutComponent implements OnInit {
   cartTotal: number;
-  cartData: cartModelServer;
-  userId;
+  cartData: CartServer;
+  userId: any;
   model: any = {};
 
   constructor(
@@ -25,7 +25,6 @@ export class CheckoutComponent implements OnInit {
     this.cartService.cartData$.subscribe((data) => (this.cartData = data));
     this.cartService.cartTotal$.subscribe((total) => (this.cartTotal = total));
     this.userService.userData$.subscribe((data) => {
-      // @ts-ignore
       this.userId = data.userId || data.id;
       console.log(this.userId);
     });
